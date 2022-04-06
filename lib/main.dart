@@ -2,6 +2,7 @@
 
 import 'package:expenditure_app/transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() => runApp(const MyApp());
 
@@ -24,6 +25,11 @@ class MyHomePage extends StatelessWidget {
     Transaction(id: "t2", title: "Tee", amoungt: 3.99, date: DateTime.now())
   ];
 
+  //late String titleInput;
+  //late String amountInput;
+  final titelControler = TextEditingController();
+  final amountControler = TextEditingController();
+
   MyHomePage({Key? key}) : super(key: key);
 
   @override
@@ -33,7 +39,7 @@ class MyHomePage extends StatelessWidget {
         title: const Text('Flutter App'),
       ),
       body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          //mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(
               width: double.infinity,
@@ -41,6 +47,35 @@ class MyHomePage extends StatelessWidget {
                 color: Colors.blue,
                 child: Text('Chart'),
                 elevation: 5,
+              ),
+            ),
+            Card(
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Title'),
+                      controller: titelControler,
+                      //onChanged: (value) => titleInput = value,
+                    ),
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Amount'),
+                      controller: amountControler,
+                      //onChanged: (value) => amountInput = value,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        print(titelControler.text);
+                      },
+                      child: Text("Add Trascation"),
+                      style: TextButton.styleFrom(
+                        primary: Colors.black,
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
             Column(
@@ -55,7 +90,7 @@ class MyHomePage extends StatelessWidget {
                                   border: Border.all(
                                       color: Colors.purple, width: 2)),
                               padding: EdgeInsets.all(10),
-                              child: Text(e.amoungt.toString(),
+                              child: Text('\$ ${e.amoungt}',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
@@ -71,7 +106,7 @@ class MyHomePage extends StatelessWidget {
                                     fontSize: 20,
                                   ),
                                 ),
-                                Text(e.date.toString(),
+                                Text(DateFormat("dd.MM.yyyy").format(e.date),
                                     style: TextStyle(
                                         fontSize: 10, color: Colors.grey))
                               ],
